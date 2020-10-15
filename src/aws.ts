@@ -4,8 +4,10 @@ import { config } from './config/config';
 const aws = config.devaws;
 
 //Configure AWS
-var credentials = new AWS.SharedIniFileCredentials({profile: aws.aws_profile});
-AWS.config.credentials = credentials;
+if(aws.aws_profile !== "DEPLOYED") {
+  var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+  AWS.config.credentials = credentials;
+}
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',

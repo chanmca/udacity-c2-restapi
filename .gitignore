@@ -31,8 +31,6 @@ plugins/ios.json
 $RECYCLE.BIN/
 postgres_dev/
 logfile
-aws-elastic-beanstalk-cli-setup/
-.elasticbeanstalk/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
