@@ -23,7 +23,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 }
 
 function generateJWT(user: User): string {
-    return jwt.sign(user, config.jwt.secret);
+    return jwt.sign(user.short(), config.jwt.secret);
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -121,9 +121,14 @@ router.post('/', async (req: Request, res: Response) => {
     }
 
     // Generate JWT
-    const jwt = generateJWT(savedUser);
-
-    res.status(201).send({token: jwt, user: savedUser.short()});
+    try {
+        const jwt = generateJWT(savedUser);
+      }
+      catch(e) {
+        throw e;
+      }    
+      console.log('JWT generated successfully');
+    res.status(201).send({token: jwt, user: savedUser.toJSON()});
 });
 
 router.get('/', async (req: Request, res: Response) => {
